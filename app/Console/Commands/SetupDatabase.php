@@ -9,7 +9,7 @@ use Exception;
 
 class SetupDatabase extends Command
 {
-    protected $signature = 'db:setup';
+    protected $signature = 'run';
     protected $description = 'Create SQLite database, run migrations, seed, and start the development server';
 
     public function __construct()
