@@ -1,0 +1,42 @@
+name: Laravel Tests
+
+on:
+  push:
+    branches:
+      - master 
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: 8.0
+
+    - name: Install Composer dependencies
+      run: composer install
+
+    - name: Copy .env.example
+      run: cp .env.example .env
+
+    - name: Generate application key
+      run: php artisan key:generate
+
+    - name: Run database migrations
+      run: php artisan migrate --env=testing
+
+    - name: Run PHPUnit tests
+      run: vendor/bin/phpunit
+
+    - name: Upload test coverage
+      if: success()
+      uses: actions/upload-artifact@v2
+      with:
+        name: coverage
+        path: coverage
