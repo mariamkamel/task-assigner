@@ -1,0 +1,28 @@
+version: '3'
+
+services:
+  laravel-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"  # Map host port 80 to container port 80 (adjust as needed)
+    volumes:
+      - .:/var/www
+    depends_on:
+      - mysql
+    environment:
+      DB_CONNECTION: mysql
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_DATABASE: laravel
+      DB_USERNAME: root
+      DB_PASSWORD: root
+
+  mysql:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: root
+    ports:
+      - "3306:3306"  # Map host port 3306 to container port 3306 (adjust as needed)
