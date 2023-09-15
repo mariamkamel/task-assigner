@@ -11,6 +11,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
+      DB_CONNECTION: ${{ secrets.DB_CONNECTION }}
       DB_DATABASE: ${{ secrets.DB_DATABASE }}
 
     steps:
